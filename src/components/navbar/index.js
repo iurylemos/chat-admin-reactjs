@@ -20,10 +20,10 @@ function NavBar() {
             </Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/#">
-              <span data-feather="shopping-cart"></span>
-              Products
-            </a>
+            <Link className="nav-link" to="/usuarios">
+              <i className="fas fa-users mr-2"></i>
+              Usuários
+            </Link>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="/#">

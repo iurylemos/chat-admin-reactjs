@@ -1,7 +1,7 @@
 import React from 'react';
 import './home.css'
 import Topo from '../../components/topo';
-import NavBar from '../../components/navbar'
+import NavBar from '../../components/navbar';
 
 function Home() {
   return (
