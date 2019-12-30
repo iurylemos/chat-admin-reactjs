@@ -8,14 +8,14 @@ function NavBar() {
         <ul className="nav flex-column">
           <li className="nav-item">
             <a className="nav-link active" href="/#">
-              <span data-feather="home"></span>
-              Dashboard <span className="sr-only">(current)</span>
+              <i class="fas fa-home mr-2"></i>
+              Home <span className="sr-only">(current)</span>
             </a>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="/#">
-              <span data-feather="file"></span>
-              Orders
+              <i class="far fa-comments mr-2"></i>
+              Chat Humano
             </a>
           </li>
           <li className="nav-item">
