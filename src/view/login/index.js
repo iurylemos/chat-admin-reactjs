@@ -2,6 +2,12 @@ import React from 'react';
 import './login.css'
 
 function Login() {
+
+  // const [email, setEmail] = useState();
+  // const [senha, setSenha] = useState();
+  // const [msgTipo, setMsgTipo] = useState();
+
+
   return (
     <div className="login-content d-flex align-items-center">
       <form className="form-signin mx-auto">

@@ -1,5 +1,6 @@
 import React from 'react';
 import './navbar.css';
+import { Link } from 'react-router-dom';
 
 function NavBar() {
   return (
@@ -7,16 +8,16 @@ function NavBar() {
       <div className="sidebar-sticky">
         <ul className="nav flex-column">
           <li className="nav-item">
-            <a className="nav-link active" href="/#">
-              <i class="fas fa-home mr-2"></i>
+            <Link className="nav-link active" to="/">
+              <i className="fas fa-home mr-2"></i>
               Home <span className="sr-only">(current)</span>
-            </a>
+            </Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/#">
-              <i class="far fa-comments mr-2"></i>
+            <Link className="nav-link" to="/chat">
+              <i className="far fa-comments mr-2"></i>
               Chat Humano
-            </a>
+            </Link>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="/#">
