@@ -16,10 +16,17 @@ function Login() {
   function logar() {
 
     login(email, senha).then((res) => {
+
+      let code_user = res.data.code_user
+      let activate = res.data.activate
+
+      console.log(code_user)
+      console.log(activate)
+
       setMsgTipo('sucesso')
       if (res.data !== '') {
         setTimeout(() => {
-          dispatch({ type: 'LOG_IN', usuarioEmail: email })
+          dispatch({ type: 'LOG_IN', usuarioEmail: email, code_user: code_user, activate: activate })
         }, 2000);
       }
       console.log(res)

@@ -1,9 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './home.css'
 import Topo from '../../components/topo';
 import NavBar from '../../components/navbar';
+import { useSelector } from 'react-redux';
+import { findChatbot } from '../../services/chatbot';
 
-function Home() {
+function Home({ match }) {
+
+  const [eventos, setEventos] = useState([])
+  const [pergunta, setPergunta] = useState();
+  const [resposta, setResposta] = useState();
+  let listaPerguntasUser = [];
+  const usuarioEmail = useSelector(state => state.usuarioEmail);
+  const codeUser = useSelector(state => state.code_user);
+  const userActivate = useSelector(state => state.activate);
+  // console.log(usuarioEmail)
+  // console.log(codeUser)
+  // console.log(userActivate)
+
+  useEffect(() => {
+    if (match.params.parametro) {
+
+    } else {
+      findChatbot(codeUser, userActivate).then(async (resultado) => {
+        console.log(resultado.data)
+        await resultado.data.forEach(doc => {
+          listaPerguntasUser.push({
+            id: doc._id,
+            ...doc
+          })
+        })
+
+        setEventos(listaPerguntasUser)
+      })
+
+    }
+  }, [])
 
   return (
     <>
@@ -21,16 +53,21 @@ function Home() {
                     <tr>
                       <td>
                         <form name="chatbotForm">
-                          <div align="center" style={{ height: '300px' }}>
+                          <div align="center" style={{ height: '300px', marginRight: '10px' }}>
                             <input type="hidden" id="code_user" />
                             <input type="hidden" id="code_current" value="0" />
-                            <select className="form-control">
+                            <select className="form-control mb-2">
                               <option value="0">Relação com Resposta Anterior</option>
-                              <option>Qual sua função?</option>
+
+                              {
+                                eventos.map(item => <option key={Math.random()}>{item.input}</option>)
+                              }
+
+                              {/* <option>Qual sua função?</option> */}
                             </select>
 
-                            <input type="text" className="form-control" placeholder="Pergunta" />
-                            <textarea cols="5" className="form-control" placeholder="Resposta"></textarea>
+                            <input type="text" className="form-control mb-2" placeholder="Pergunta" />
+                            <textarea cols="5" className="form-control mb-2" placeholder="Resposta"></textarea>
                             <button style={{ marginRight: '2px' }} className="btn btn-lg btn-info" >NOVO</button>
                             <button style={{ marginRight: '1px' }} className="btn btn-lg btn-info" type="submit"
                             >SALVAR</button>
@@ -40,17 +77,25 @@ function Home() {
                       </td>
                       <td>
                         <div style={{ overflowY: 'scroll', height: '300px' }}>
+                          <option value="0">Relação com Resposta Anterior</option>
                           <table className="table table-striped" style={{ width: '100%' }}>
                             <tbody id="linhas">
                               {/* <option value="0">Relação com Resposta Anterior</option> */}
-                              <tr>
-                                <td style={{ width: '400px' }}>Qual sua função?</td>
-                                <td align="center">
-                                  <button className="btn btn-info">
-                                    Selecionar
-                                </button>
-                                </td>
-                              </tr>
+                              {/* <tr> */}
+                              {
+                                // eventos.map(item => <td key={Math.random()} style={{ width: '400px' }}>{item.input}</td>)
+                                eventos.map(item =>
+                                  <tr key={Math.random()}>
+                                    <td style={{ width: '400px' }}>{item.input}</td>
+                                    <td align="center">
+                                      <button className="btn btn-info">
+                                        Selecionar
+                                  </button>
+                                    </td>
+                                  </tr>
+                                )
+                              }
+
                             </tbody>
                           </table>
                         </div>

@@ -1,8 +1,15 @@
 import axios from 'axios';
 
-function findChatbot(objJSON) {
+function findChatbot(code_user, activate) {
+
+  let objJSON = {
+    "code_user": code_user,
+    "activate": activate
+  }
+
   return axios.post('http://localhost:5000/chatbot/find', { objJSON }).then((res) => {
     console.log(res)
+    return res
   })
 }
 
