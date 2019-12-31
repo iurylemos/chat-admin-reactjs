@@ -7,8 +7,8 @@ function Chat() {
 
     const style = {
         overflowY: 'scroll',
-        height: '650px',
-        width: '1390px',
+        height: '500px',
+        width: '870px',
         maxWidth: '100%',
         minWidth: '100%',
     }
