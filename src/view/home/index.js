@@ -7,6 +7,7 @@ import { findChatbot } from '../../services/chatbot';
 
 function Home({ match }) {
 
+  const [codigo, setCodigo] = useState();
   const [eventos, setEventos] = useState([])
   const [pergunta, setPergunta] = useState();
   const [resposta, setResposta] = useState();
@@ -37,6 +38,26 @@ function Home({ match }) {
     }
   }, [])
 
+  function selecionar(item) {
+    console.log(item)
+
+    if (item.code_relation > 0) {
+
+      for (let index = 0; index < eventos.length; index++) {
+        const element = eventos[index];
+        if (element.code_current === item.code_relation) {
+          setCodigo(element.input)
+          console.log(element.input)
+          console.log(codigo)
+        }
+
+      }
+    }
+
+    setPergunta(item.input)
+    setResposta(item.output)
+  }
+
   return (
     <>
       <Topo></Topo>
@@ -56,8 +77,8 @@ function Home({ match }) {
                           <div align="center" style={{ height: '300px', marginRight: '10px' }}>
                             <input type="hidden" id="code_user" />
                             <input type="hidden" id="code_current" value="0" />
-                            <select className="form-control mb-2">
-                              <option value="0">Relação com Resposta Anterior</option>
+                            <select className="form-control mb-2" value={codigo && codigo}>
+                              <option>Relação com Resposta Anterior</option>
 
                               {
                                 eventos.map(item => <option key={Math.random()}>{item.input}</option>)
@@ -66,11 +87,10 @@ function Home({ match }) {
                               {/* <option>Qual sua função?</option> */}
                             </select>
 
-                            <input type="text" className="form-control mb-2" placeholder="Pergunta" />
-                            <textarea cols="5" className="form-control mb-2" placeholder="Resposta"></textarea>
+                            <input type="text" className="form-control mb-2" placeholder="Pergunta" value={pergunta && pergunta} />
+                            <textarea cols="5" className="form-control mb-2" placeholder="Resposta" value={resposta && resposta}></textarea>
                             <button style={{ marginRight: '2px' }} className="btn btn-lg btn-info" >NOVO</button>
-                            <button style={{ marginRight: '1px' }} className="btn btn-lg btn-info" type="submit"
-                            >SALVAR</button>
+                            <button style={{ marginRight: '1px' }} className="btn btn-lg btn-info" type="submit">SALVAR</button>
                             <button className="btn btn-lg btn-danger" data-toggle="modal" data-target="#dlDeletar">DELETAR</button>
                           </div>
                         </form>
@@ -88,9 +108,9 @@ function Home({ match }) {
                                   <tr key={Math.random()}>
                                     <td style={{ width: '400px' }}>{item.input}</td>
                                     <td align="center">
-                                      <button className="btn btn-info">
+                                      <button onClick={() => selecionar(item)} className="btn btn-info">
                                         Selecionar
-                                  </button>
+                                      </button>
                                     </td>
                                   </tr>
                                 )
@@ -102,11 +122,10 @@ function Home({ match }) {
                       </td>
                     </tr>
                   </tbody>
-
                 </table>
+
                 <div id="dlDeletar" className="modal" role="dialog">
                   <div className="modal-dialog">
-
                     <div className="modal-content">
                       <div className="modal-header">
                         <h4 className="modal-title">DELEÇÃO</h4>
@@ -120,13 +139,11 @@ function Home({ match }) {
                         <button type="button" className="btn btn-danger" data-dismiss="modal">DELETAR</button>
                       </div>
                     </div>
-
                   </div>
                 </div>
 
                 <div id="dlDocumentos" className="modal" role="dialog">
                   <div className="modal-dialog">
-
                     <div className="modal-content">
                       <div className="modal-header">
                         <h4 className="modal-title">Informações Capturadas</h4>
@@ -169,19 +186,15 @@ function Home({ match }) {
                           </table>
                         </div>
                       </div>
-
                       <div className="modal-footer">
                         <button type="button" className="btn btn-default" data-dismiss="modal">Fechar</button>
                       </div>
                     </div>
-
-
                   </div>
                 </div >
 
                 <div id="dlAPI" className="modal" role="dialog">
                   <div className="modal-dialog">
-
                     <div className="modal-content">
                       <div className="modal-header">
                         <h4 className="modal-title">API</h4>
@@ -190,7 +203,6 @@ function Home({ match }) {
                       <div className="modal-body">
                         <b>Link de Integração</b>
                         <input type="text" id="integracao" className="form-control" />
-
                         <b>Código de Incorporação</b>
                         <div id="incorporacao">Texto</div>
                       </div>
@@ -198,7 +210,6 @@ function Home({ match }) {
                         <button type="button" className="btn btn-default" data-dismiss="modal">Fechar</button>
                       </div>
                     </div>
-
                   </div>
                 </div>
               </div>
